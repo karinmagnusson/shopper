@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { exchangeCodeForToken, validateState } from '@/lib/pinterest'
 import { setToken } from '@/lib/api'
@@ -8,7 +8,7 @@ import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
 type Status = 'loading' | 'success' | 'error'
 
-export default function AuthCallbackPage() {
+function AuthCallbackContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [status, setStatus] = useState<Status>('loading')
@@ -93,5 +93,19 @@ export default function AuthCallbackPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function AuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 to-pink-50">
+          <LoadingSpinner size="lg" />
+        </div>
+      }
+    >
+      <AuthCallbackContent />
+    </Suspense>
   )
 }
