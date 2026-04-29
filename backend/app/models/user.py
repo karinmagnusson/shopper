@@ -1,6 +1,6 @@
 """SQLAlchemy User model."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from sqlalchemy import JSON, Boolean, Column, DateTime, String
@@ -20,7 +20,7 @@ class User(Base):
     email = Column(String, nullable=True)
     display_name = Column(String, nullable=True)
     avatar_url = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     last_sync = Column(DateTime, nullable=True)
     style_preferences = Column(JSON, default=dict, nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)

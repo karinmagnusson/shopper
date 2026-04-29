@@ -1,6 +1,6 @@
 """SQLAlchemy UserInteraction and ProductRecommendation models."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from sqlalchemy import Column, DateTime, Float, ForeignKey, String
@@ -19,7 +19,7 @@ class UserInteraction(Base):
     user_id = Column(UUID(native_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     product_id = Column(UUID(native_uuid=True), ForeignKey("products.id", ondelete="CASCADE"), nullable=False, index=True)
     interaction_type = Column(String, nullable=False)  # "click", "save", "purchase"
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     session_id = Column(String, nullable=True)
     referrer_pin_id = Column(String, nullable=True)  # Pinterest pin that drove the click
 
@@ -41,7 +41,7 @@ class ProductRecommendation(Base):
     score = Column(Float, nullable=False)  # Relevance score 0.0 – 1.0
     reason = Column(String, nullable=True)  # Human-readable reason
     source_pin_id = Column(String, nullable=True)  # Pinterest pin that drove the recommendation
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     expires_at = Column(DateTime, nullable=True)
 
     user = relationship("User", back_populates="recommendations")

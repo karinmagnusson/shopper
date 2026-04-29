@@ -1,6 +1,6 @@
 """SQLAlchemy Product model."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from sqlalchemy import JSON, Column, DateTime, Index, Integer, Numeric, String, Text
@@ -31,8 +31,8 @@ class Product(Base):
     style_tags = Column(JSON, default=list, nullable=False)
     rating = Column(Numeric(3, 2), nullable=True)
     review_count = Column(Integer, default=0)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc), nullable=False)
 
     recommendations = relationship("ProductRecommendation", back_populates="product", cascade="all, delete-orphan")
     interactions = relationship("UserInteraction", back_populates="product", cascade="all, delete-orphan")

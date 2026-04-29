@@ -2,7 +2,7 @@
 
 import asyncio
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 import httpx
 from sqlalchemy import select
@@ -203,7 +203,7 @@ async def sync_boards_to_db(user: User, access_token: str, db: AsyncSession) -> 
                 pin_count=board_data.get("pin_count", 0),
                 follower_count=board_data.get("follower_count", 0),
                 board_metadata=board_data,
-                synced_at=datetime.utcnow(),
+                synced_at=datetime.now(timezone.utc),
             )
             db.add(board)
         else:
@@ -213,11 +213,11 @@ async def sync_boards_to_db(user: User, access_token: str, db: AsyncSession) -> 
             board.pin_count = board_data.get("pin_count", board.pin_count)
             board.follower_count = board_data.get("follower_count", board.follower_count)
             board.board_metadata = board_data
-            board.synced_at = datetime.utcnow()
+            board.synced_at = datetime.now(timezone.utc)
 
         saved.append(board)
 
-    user.last_sync = datetime.utcnow()
+    user.last_sync = datetime.now(timezone.utc)
     await db.flush()
     return saved
 

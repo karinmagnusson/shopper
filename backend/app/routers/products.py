@@ -93,22 +93,12 @@ async def search_products(
 
     stmt = select(Product)
     if conditions:
-        from sqlalchemy import and_
         stmt = stmt.where(and_(*conditions))
     stmt = stmt.offset(offset).limit(limit)
 
     result = await db.execute(stmt)
     products = result.scalars().all()
     return [ProductResponse.model_validate(p) for p in products]
-
-
-class ClickBody:
-    """Request body for POST /products/track-click."""
-
-    def __init__(self, product_id: UUID, session_id: str | None = None, referrer_pin_id: str | None = None):
-        self.product_id = product_id
-        self.session_id = session_id
-        self.referrer_pin_id = referrer_pin_id
 
 
 @router.post("/track-click", status_code=status.HTTP_204_NO_CONTENT)

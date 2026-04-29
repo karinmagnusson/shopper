@@ -2,7 +2,7 @@
 
 import asyncio
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app.tasks.celery_app import celery_app
 
@@ -84,7 +84,7 @@ def analyze_pin(self, pin_id: str) -> dict:
 
             analysis = await analyze_pin_image(pin.image_url)
             pin.analysis_data = analysis.to_dict()
-            pin.analyzed_at = datetime.utcnow()
+            pin.analyzed_at = datetime.now(timezone.utc)
             await db.commit()
             return {
                 "pin_id": pin_id_str,

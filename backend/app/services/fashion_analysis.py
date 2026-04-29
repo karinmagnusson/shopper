@@ -199,7 +199,7 @@ def _simple_embedding(categories: list[str], colors: list[str], style: str) -> l
     matching without requiring a full ML model at MVP stage.
 
     Returns:
-        List of floats (length 16).
+        List of floats (length 14: 7 category bits + 6 style bits + 1 color value).
     """
     all_categories = [
         "tops", "bottoms", "dresses", "outerwear",

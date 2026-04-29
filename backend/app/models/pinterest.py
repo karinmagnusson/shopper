@@ -1,6 +1,6 @@
 """SQLAlchemy Pinterest board and pin models."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, JSON, String, Text
@@ -23,7 +23,7 @@ class PinterestBoard(Base):
     cover_image_url = Column(String, nullable=True)
     pin_count = Column(Integer, default=0)
     follower_count = Column(Integer, default=0)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     synced_at = Column(DateTime, nullable=True)
     board_metadata = Column(JSON, default=dict, nullable=False)
 
@@ -46,7 +46,7 @@ class PinterestPin(Base):
     description = Column(Text, nullable=True)
     image_url = Column(String, nullable=False)
     link = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     saved_at = Column(DateTime, nullable=True)
     # Fashion analysis results stored as JSON
     analysis_data = Column(JSON, nullable=True)
