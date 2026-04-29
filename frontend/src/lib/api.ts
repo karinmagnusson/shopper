@@ -16,7 +16,7 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 30_000,
+  timeout: 15_000,
 })
 
 // Attach bearer token from session storage when present
@@ -67,10 +67,11 @@ export async function startAnalysis(
   boardIds: string[],
   accessToken: string
 ): Promise<AnalysisJob> {
+  // Analysis can take longer — use an extended timeout
   const { data } = await apiClient.post<AnalysisJob>(
     '/api/analysis/start',
     { board_ids: boardIds },
-    { headers: { Authorization: `Bearer ${accessToken}` } }
+    { headers: { Authorization: `Bearer ${accessToken}` }, timeout: 60_000 }
   )
   return data
 }
