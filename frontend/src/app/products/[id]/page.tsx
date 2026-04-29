@@ -7,13 +7,14 @@ import { ArrowLeftIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/ou
 import { StarIcon } from '@heroicons/react/24/solid'
 
 interface ProductPageProps {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
+  const { id } = await params
   let product
   try {
-    product = await getProduct(params.id)
+    product = await getProduct(id)
   } catch {
     notFound()
   }
