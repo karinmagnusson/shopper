@@ -36,7 +36,7 @@ async def get_product_recommendations(
 ) -> list[RecommendationResponse]:
     """Return personalised product recommendations for the authenticated user.
 
-    Supports filtering by category, colour, brand, and price range.
+    Supports filtering by category, color, brand, and price range.
     """
     recs = await get_recommendations(
         user_id=current_user.id,

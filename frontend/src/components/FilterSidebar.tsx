@@ -7,7 +7,7 @@ import clsx from 'clsx'
 
 const CATEGORIES = [
   'Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Shoes',
-  'Accessories', 'Bags', 'Jewellery', 'Activewear', 'Swimwear',
+  'Accessories', 'Bags', 'Jewelry', 'Activewear', 'Swimwear',
 ]
 
 const COLORS = [
