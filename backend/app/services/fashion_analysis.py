@@ -100,14 +100,14 @@ async def download_image(url: str) -> Image.Image:
 
 
 def extract_dominant_colors(image: Image.Image, num_colors: int = 5) -> list[str]:
-    """Extract dominant colours from an image using PIL quantization.
+    """Extract dominant colors from an image using PIL quantization.
 
     Args:
         image: PIL Image object (RGB).
-        num_colors: Number of dominant colours to extract.
+        num_colors: Number of dominant colors to extract.
 
     Returns:
-        List of hex colour strings e.g. ["#ff0000", "#00ff00"].
+        List of hex color strings e.g. ["#ff0000", "#00ff00"].
     """
     # Resize for speed; quantize into a palette
     small = image.resize((150, 150))
@@ -212,7 +212,7 @@ def _simple_embedding(categories: list[str], colors: list[str], style: str) -> l
         vec.append(1.0 if cat in categories else 0.0)
     for sty in all_styles:
         vec.append(1.0 if sty == style else 0.0)
-    # Colour magnitude (simplified: number of colours / 5)
+    # Color magnitude (simplified: number of colors / 5)
     vec.append(min(len(colors) / 5.0, 1.0))
     # Normalise
     mag = math.sqrt(sum(x * x for x in vec)) or 1.0
@@ -223,7 +223,7 @@ async def analyze_pin_image(image_url: str) -> FashionAnalysis:
     """Run full fashion analysis pipeline on a pin image URL.
 
     Steps:
-      1. Download image for colour extraction.
+      1. Download image for color extraction.
       2. Call Vision API for label detection.
       3. Map labels to fashion categories.
       4. Classify style.

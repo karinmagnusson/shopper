@@ -23,11 +23,11 @@ WEIGHT_BRAND = 0.10
 
 
 def _color_similarity(pin_colors: list[str], product_colors: list[str]) -> float:
-    """Return proportion of pin colours that appear in the product palette.
+    """Return proportion of pin colors that appear in the product palette.
 
     Args:
-        pin_colors: Dominant colours from pin analysis (hex strings).
-        product_colors: Colours listed on the product.
+        pin_colors: Dominant colors from pin analysis (hex strings).
+        product_colors: Colors listed on the product.
 
     Returns:
         Float in [0.0, 1.0].
@@ -233,7 +233,7 @@ def _build_reason(analysis: dict, product: Product, score: float) -> str:
     if analysis.get("colors") and product.colors:
         common_colors = set(analysis["colors"]) & set(product.colors)
         if common_colors:
-            reasons.append("complements your colour palette")
+            reasons.append("complements your color palette")
 
     if not reasons:
         return "Recommended based on your Pinterest style"
@@ -259,7 +259,7 @@ async def get_recommendations(
         limit: Page size.
         offset: Page offset.
         category: Filter by product category.
-        color: Filter by colour in product colours array.
+        color: Filter by color in product colors array.
         brand: Filter by brand name.
         min_price: Minimum product price filter.
         max_price: Maximum product price filter.
