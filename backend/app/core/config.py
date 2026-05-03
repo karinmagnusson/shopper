@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     )
 
     # Database
-    DATABASE_URL: str = "postgresql://shopper:shopper_pass@localhost:5432/shopper_db"
+    DATABASE_URL: str = "sqlite:///./shopper.db"
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     AMAZON_SECRET_KEY: str = ""
 
     # CORS
-    CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000", "https://*.railway.app", "https://*.up.railway.app"]
 
     # App
     APP_ENV: str = "development"
