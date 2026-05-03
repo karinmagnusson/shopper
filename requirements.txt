@@ -1,0 +1,34 @@
+# Web Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+
+# Database
+sqlalchemy==2.0.25
+alembic==1.13.1
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+pydantic-settings==2.1.0
+
+# HTTP Requests
+httpx==0.26.0
+requests==2.31.0
+
+# Pinterest API (unofficial - we'll use requests directly)
+# Note: Pinterest API v5 requires OAuth 2.0
+
+# Amazon Product Advertising API
+python-amazon-paapi==5.1.0
+
+# Image Processing & ML
+torch==2.2.0
+torchvision==0.17.0
+transformers==4.37.0
+pillow==10.2.0
+sentence-transformers==2.3.1
+
+# Utilities
+python-dotenv==1.0.0
+pydantic==2.5.3
