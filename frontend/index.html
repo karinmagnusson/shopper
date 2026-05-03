@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinterest Style Matcher - Shop Your Style</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🛍️</span>
+                <h1>Pinterest Style Matcher</h1>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span id="username"></span>
+                <button class="btn-secondary" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- Landing: Not authenticated -->
+        <div id="landingSection" class="section">
+            <div class="hero">
+                <h2 class="hero-title">Turn Your Pinterest Inspiration into Shopping Reality</h2>
+                <p class="hero-subtitle">Connect your Pinterest and discover where to buy items you love</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <span class="feature-icon">📌</span>
+                        <h3>Connect Pinterest</h3>
+                        <p>Securely link your Pinterest account</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🔍</span>
+                        <h3>Visual AI Matching</h3>
+                        <p>Find similar products using advanced image recognition</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🛒</span>
+                        <h3>Shop Instantly</h3>
+                        <p>Get direct links to purchase matching items</p>
+                    </div>
+                </div>
+
+                <button class="btn-primary btn-large" onclick="loginWithPinterest()">
+                    <span class="pinterest-icon">📍</span>
+                    Connect with Pinterest
+                </button>
+
+                <p class="privacy-note">🔒 Your data is private and secure. We never post without permission.</p>
+            </div>
+        </div>
+
+        <!-- Loading state -->
+        <div id="loadingSection" class="section" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Connecting to Pinterest...</p>
+        </div>
+
+        <!-- Dashboard: Authenticated -->
+        <div id="dashboardSection" class="section" style="display: none;">
+            <div class="dashboard-header">
+                <h2>Your Pinterest Collection</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <span class="stat-number" id="pinsCount">0</span>
+                        <span class="stat-label">Pins</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="boardsCount">0</span>
+                        <span class="stat-label">Boards</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pins Gallery -->
+            <div id="pinsGallery" class="pins-gallery">
+                <!-- Pins will be loaded here -->
+            </div>
+
+            <div id="emptyState" class="empty-state">
+                <span class="empty-icon">📌</span>
+                <h3>No pins found</h3>
+                <p>Start pinning on Pinterest to see your collection here!</p>
+            </div>
+        </div>
+
+        <!-- Error message -->
+        <div id="errorSection" class="section error-message" style="display: none;">
+            <span class="error-icon">⚠️</span>
+            <h3>Oops! Something went wrong</h3>
+            <p id="errorText"></p>
+            <button class="btn-primary" onclick="location.reload()">Try Again</button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with ❤️ using Pinterest API & FastAPI</p>
+            <p class="api-status">
+                API Status: <span id="apiStatus" class="status-indicator">⚪ Checking...</span>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Pin Detail Modal -->
+    <div id="pinModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="Pin image">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <button class="btn-primary btn-large" onclick="shopSimilar()">
+                        🛍️ Shop Similar Styles
+                    </button>
+                    <p class="coming-soon">Visual AI matching coming soon!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
