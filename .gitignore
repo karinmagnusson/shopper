@@ -18,6 +18,13 @@ dist/
 build/
 backend/venv/
 backend/.venv/
+.venv/
+venv/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
 # Env files
 .env
